@@ -1,4 +1,4 @@
 class User < ActiveRecord::Base
    has_many :likes
-   has_many :posts, through: :like
+   has_many :posts
 end
