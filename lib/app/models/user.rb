@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
       end 
 
       def user_liked_posts
-         self.likes.select{|like| like.user}.map{|user| user.posts}
+         self.likes.map{|like| like.post}
       end
 
       

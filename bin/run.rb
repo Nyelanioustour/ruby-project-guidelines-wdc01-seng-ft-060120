@@ -20,7 +20,7 @@ loop do
       end
     
     if login_valid?(user_main)
-      puts "\n#{user_main} is now logged in!"
+      puts "\n#{user_main.username} is now logged in!"
     break
     else
       puts "\nUser name not found!\n\n"
@@ -33,7 +33,7 @@ loop do
   user_input = get_user_input
   case user_input
   when "1"
-    puts display_all_posts()
+     display_all_posts()
   when "2"
     display_user_posts(user_main)
   when "3" 

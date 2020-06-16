@@ -20,15 +20,22 @@ def display_user_main_prompt
 end
 
 def display_all_posts
-    Post.all
+    Post.all.each do |post|
+        post.parse_post
+    end
 end
 
 def display_user_posts(user_main)
-    user_main.posts
+
+    user_main.posts.each do |post|
+        post.parse_post
+    end 
 end
 
 def display_user_liked_posts(user_main)
-    user_main.display_user_liked_posts
+    user_main.user_liked_posts.each do |post|
+        post.parse_post
+    end
 end
 
 def create_post_by_user(user_main)
