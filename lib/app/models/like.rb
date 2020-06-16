@@ -2,5 +2,7 @@ class Like < ActiveRecord::Base
    belongs_to :user
    belongs_to :post
 
-   #total_like
+   def self.total_likes
+      Like.all.count
+   end
 end
