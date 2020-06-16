@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
    #    Like.all.map {|like| like.user_id}
    # end
 
-   #most_posts
-
+   
 
 end
