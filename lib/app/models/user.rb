@@ -16,29 +16,21 @@ class User < ActiveRecord::Base
          self.posts.map {|post| post.body}
       end
 
-
-       def percentage_posts
+      def percentage_posts
          (self.posts.count / Post.all.length.to_f) * 100
-       end 
-       end
+      end 
+
+      def user_liked_posts
+         self.likes.select{|like| like.user}.map{|user| user.posts}
+      end
+
       
-      # def self.most_likes
-      #    Like.all.map {|like| like.user_id}
-      #    # binding.pry 
-      # end
+      def self.most_likes
+         Post.most_likes.map{|post| post.user}
+      end
 
       def most_posts
          User.all.select do |user| user.posts.count == Post.all.map{|post| post.user}.map{|user| user.posts.count}.max
         end 
       end
-   
-
-   #total_likes
-
-   # def self.most_likes
-   #    Like.all.map {|like| like.user_id}
-   # end
-
-   
-
 end
