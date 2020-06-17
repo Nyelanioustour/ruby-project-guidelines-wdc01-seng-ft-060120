@@ -1,6 +1,15 @@
 class Post < ActiveRecord::Base
     has_many :likes
     belongs_to :user
+    has_many :tags, through: :posttag
+    
+    def parse_post
+        puts "\nTitle: #{self.title}\n\n"
+        puts "#{self.body}\n\n"
+        puts "Author: #{self.user.username}\n\n"
+        puts "\n ******************* \n"
+    end
+
     
 
     def self.keyword_search_title(search_term)
@@ -24,12 +33,6 @@ class Post < ActiveRecord::Base
     end
 
 
-    def parse_post
-        puts "Title: #{self.title}\n\n"
-        puts "#{self.body}\n\n"
-        puts "Author: #{self.user.username}\n\n"
-
-    end
-
+    
 
 end

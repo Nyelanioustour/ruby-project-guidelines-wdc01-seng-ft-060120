@@ -16,37 +16,51 @@ def display_user_main_prompt
     puts "3. View liked posts"
     puts "4. Search through all posts"
     puts "5. Create new post"
-    puts "6. Quit."
+    puts "6. View top Poster"
+    puts "7. View most liked posts"
+    puts "8. Quit."
 end
 
-def display_all_posts
-    Post.all.each do |post|
+def display_like_prompt
+    puts "1. Like a post."
+    puts "Any other number to return to previous menu."
+    
+end 
+
+def display_post_results(current_post_display)
+    puts "\n"
+    count = 1
+    current_post_display.each do |post|
+        puts "\n"
+        print "Post #{count}" 
         post.parse_post
+        count +=1
     end
 end
 
-def display_user_posts(user_main)
-
-    user_main.posts.each do |post|
-        post.parse_post
-    end 
-end
-
-def display_user_liked_posts(user_main)
-    user_main.user_liked_posts.each do |post|
-        post.parse_post
+def like_query(user_input)
+    if user_input == "1"
+        puts "Enter post number.8"
+        user_input = get_user_input()
+        user_main.like_post(current_post_display,user_input)
     end
-end
-
-def create_post_by_user(user_main)
-    #take in user and make post
+    
 end
 
 def display_search_prompt
     puts "1. Search by title."
     puts "2. Search by post content."
     puts "3. Show most liked posts"
+    puts "4. Quit"
 end
+
+# def display_search_results(current_post_display)
+#     count = 0
+#     current_post_display.each do |post| 
+#         post.parse_post
+#         count += 1
+#     end
+# end
 
 def get_user_input
     gets.chomp
@@ -66,6 +80,10 @@ end
 
 def login_valid?(user_main)
     User.all.include?(user_main)
+end
+
+def create_and_display_created_post(topic,title,body,user_id)
+    Post.create(topic: topic,title: title,body: body,user_id: user_id).parse_post
 end
 
 def invalid_option

@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
          self.posts.map {|post| post.body}
       end
 
-      def percentage_posts
+      def post_percentage
          (self.posts.count / Post.all.length.to_f) * 100
       end 
 
@@ -24,13 +24,24 @@ class User < ActiveRecord::Base
          self.likes.map{|like| like.post}
       end
 
-      
+      def like_post(current_post_display, user_input)
+         like = Like.create(user_id: self.id, post_id: current_post_display[user_input.to_i-1].id)
+         puts "\nYou like this post!\n"
+         return like.post.parse_post
+      end
+
       def self.most_likes
          Post.most_likes.map{|post| post.user}
       end
 
-      def most_posts
-         User.all.select do |user| user.posts.count == Post.all.map{|post| post.user}.map{|user| user.posts.count}.max
-        end 
+      def self.display_most_posts
+         array = self.all.select do |user| 
+           user.posts.count == self.all.map{|user| user.posts.count}.max 
+         end 
+       print "\nThe top poster is"
+        array.each do|user| 
+           puts " #{user.username}"     
+         end
+         puts "\n ******************* \n"
       end
 end
