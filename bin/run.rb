@@ -47,8 +47,23 @@ loop do
       current_post_display = user_main.user_liked_posts
       display_post_results(current_post_display)
     when "4"
-      break
+      display_follow_tag_options()
+      user_input = get_user_input
+      if user_input == "1"
+        current_post_display = user_main.posts_by_user_tags()
+        display_post_results(current_post_display)
+        user_main.display_user_tags()
+      elsif user_input == "2"
+        display_user_tag_prompt()
+        display_active_tags()
+        user_input = get_user_input
+        user_tag = Tag.search_tag_by_name(user_input)
+        user_main.follow_a_tag(user_tag)
+      end
+
     when "5"
+      break
+    when "6"
       puts "Enter topic" 
       topic = get_user_input
       puts "Enter title"
@@ -68,16 +83,16 @@ loop do
           user_tag = Tag.search_tag_by_name(user_input)
           user_tag.assign_tag_to_post(current_post_display[0])
       end
-    when "6"
-      User.display_most_posts
     when "7"
+      User.display_most_posts
+    when "8"
       current_post_display = Post.most_likes
       display_post_results(current_post_display)
       display_select_option()
       display_like_prompt()
       user_input = get_user_input()
       like_query(user_input)
-    when "8"
+    when "9"
       exit()
     else
       invalid_option()
@@ -115,12 +130,13 @@ loop do
       current_post_display = PostTag.search_post_by_tags(user_input)
       display_post_results(current_post_display)
     when "4"
-      current_post_display = Post.most_likes
-      display_post_results(current_post_display)
-      display_select_option()
-      display_like_prompt()
-      user_input = get_user_input()
-      like_query(user_input)
+      Post.display_sorted_posts_most_likes()
+      # current_post_display = Post.most_likes
+      # display_post_results(current_post_display)
+      # display_select_option()
+      # display_like_prompt()
+      # user_input = get_user_input()
+      # like_query(user_input)
     when "5"
       break
     else

@@ -27,29 +27,32 @@ def display_tag_to_add?
 end
 
 def display_active_tags()
-    array = Tag.all.map do |tag|
-        tag.name
-    end
     print "Active tags: "
-    puts array.split(", ")
+    print Tag.all.map {|tag| tag.name}.join(", ")
+    puts "\n\n"
 end
 
 
 def display_user_main_prompt
     puts "1. View all posts."
-    puts "2. View your own posts"
-    puts "3. View your liked posts"
-    puts "4. Search through all posts"
-    puts "5. Create new post"
-    puts "6. View top Poster"
-    puts "7. View most liked posts"
-    puts "8. Quit."
+    puts "2. View your own posts."
+    puts "3. View your liked posts."
+    puts "4. Follow tags or view followed posts."
+    puts "5. Search through all posts."
+    puts "6. Create new post."
+    puts "7. View top Poster."
+    puts "8. View most liked posts."
+    puts "9. Quit."
 end
 
 def display_like_prompt
     puts "1. Like a post."
     puts "Any other number to return to previous menu."
 end 
+
+def display_user_tag_prompt
+    puts "Enter a tag to follow."
+end
 
 def display_post_results(current_post_display)
     puts "\n"
@@ -58,6 +61,9 @@ def display_post_results(current_post_display)
         puts "\n"
         print "Post #{count}" 
         post.parse_post
+        print "Likes: "
+        print post.likes.count
+        puts "\n ******************* \n"
         count +=1
     end
 end
@@ -74,7 +80,7 @@ def display_search_prompt
     puts "1. Search by title."
     puts "2. Search by post content."
     puts "3. Search by post tags."
-    puts "4. Show most liked posts"
+    puts "4. Sort posts by most liked posts"
     puts "5. Return to previous menu"
 end
 
@@ -105,6 +111,12 @@ end
 def select_post_to_tag(user_input, current_post_display)
     return current_post_display[user_input.to_i-1]
 
+ end
+
+ def display_follow_tag_options
+     puts "1. Display posts with followed tags."
+     puts "2. Add a tag to followed tags."
+     puts "Any other number to return to previous menu."
  end
 
 def invalid_option

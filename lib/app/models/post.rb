@@ -1,3 +1,5 @@
+require_relative '../../command_line_interface.rb'
+
 class Post < ActiveRecord::Base
     has_many :likes
     belongs_to :user
@@ -8,7 +10,6 @@ class Post < ActiveRecord::Base
         puts "\nTitle: #{self.title}\n\n"
         puts "#{self.body}\n\n"
         puts "Author: #{self.user.username}\n\n"
-        puts "\n ******************* \n"
     end
 
     
@@ -27,11 +28,30 @@ class Post < ActiveRecord::Base
         results << self.keyword_search_body(search_term)
     end
 
-    def self.most_likes
-        Post.all.select do |post|
-            post.likes.count == Post.all.map{|post| post.likes.count}.max
+    def self.display_sorted_posts_most_likes
+        array = []
+        post_array = []
+        count = 0
+
+        Post.all.each do |post|
+            array << post.likes.count
         end
+        array = array.sort.reverse
+        Post.all.each do |post|
+            post.likes == array[count]
+            post_array = [post]
+            display_post_results(post_array)
+            count +=1
+            end
+        return nil
     end
+
+
+        # array.sort
+
+            # post.likes.count == Post.all.map{|post| post.likes.count}.max
+        
+
 
     def self.search_current_post_view(current_post_display)
 
