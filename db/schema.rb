@@ -10,11 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_15_224612) do
+ActiveRecord::Schema.define(version: 2020_06_17_021014) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "post_id"
+  end
+
+  create_table "post_tags", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "tag_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -22,6 +27,12 @@ ActiveRecord::Schema.define(version: 2020_06_15_224612) do
     t.string "topic"
     t.text "body"
     t.integer "user_id"
+    t.integer "tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.integer "posttag_id"
   end
 
   create_table "users", force: :cascade do |t|
