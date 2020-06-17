@@ -10,10 +10,23 @@ def display_select_option
     puts "Select an option."
 end
 
+def display_tag_selection()
+    puts "Enter tag to search by"
+end
+
+def display_active_tags()
+    array = Tag.all.map do |tag|
+        tag.name
+    end
+    print "Active tags: "
+    puts array.split(", ")
+end
+
+
 def display_user_main_prompt
     puts "1. View all posts."
     puts "2. View your own posts"
-    puts "3. View liked posts"
+    puts "3. View your liked posts"
     puts "4. Search through all posts"
     puts "5. Create new post"
     puts "6. View top Poster"
@@ -44,23 +57,15 @@ def like_query(user_input)
         user_input = get_user_input()
         user_main.like_post(current_post_display,user_input)
     end
-    
 end
 
 def display_search_prompt
     puts "1. Search by title."
     puts "2. Search by post content."
-    puts "3. Show most liked posts"
-    puts "4. Quit"
+    puts "3. Search by post tags."
+    puts "4. Show most liked posts"
+    puts "5. Return to previous menu"
 end
-
-# def display_search_results(current_post_display)
-#     count = 0
-#     current_post_display.each do |post| 
-#         post.parse_post
-#         count += 1
-#     end
-# end
 
 def get_user_input
     gets.chomp
@@ -91,5 +96,5 @@ def invalid_option
 end
 
 def exit 
-    exit(true)
+    exit!
 end
