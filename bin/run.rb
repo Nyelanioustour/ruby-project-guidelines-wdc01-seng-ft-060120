@@ -62,9 +62,11 @@ loop do
       if user_input == "1"
         display_tag_to_add?
         user_input = get_user_input
-        user_tag = Tag.search_tag_by_name(user_input)
-        user_tag.assign_tag_to_post(current_post_display[0])
-        #add tag
+        if !Tag.tag_exist?(user_input)  
+          Tag.create(name: user_input)
+        end
+          user_tag = Tag.search_tag_by_name(user_input)
+          user_tag.assign_tag_to_post(current_post_display[0])
       end
     when "6"
       User.display_most_posts

@@ -49,7 +49,6 @@ end
 def display_like_prompt
     puts "1. Like a post."
     puts "Any other number to return to previous menu."
-    
 end 
 
 def display_post_results(current_post_display)
