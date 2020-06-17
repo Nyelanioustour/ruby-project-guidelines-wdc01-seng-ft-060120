@@ -50,12 +50,22 @@ loop do
       break
     when "5"
       puts "Enter topic" 
-      topic = gets.chomp
+      topic = get_user_input
       puts "Enter title"
-      title = gets.chomp
+      title = get_user_input
       puts "Compose Post:" 
-      body = gets.chomp
-      create_and_display_created_post(topic,title,body,user_main.id)
+      body = get_user_input
+      current_post_display << create_created_post(topic,title,body,user_main.id)
+      display_post_results(current_post_display)
+      display_add_tag?
+      user_input = get_user_input
+      if user_input == "1"
+        display_tag_to_add?
+        user_input = get_user_input
+        user_tag = Tag.search_tag_by_name(user_input)
+        user_tag.assign_tag_to_post(current_post_display[0])
+        #add tag
+      end
     when "6"
       User.display_most_posts
     when "7"

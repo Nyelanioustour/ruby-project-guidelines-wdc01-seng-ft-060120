@@ -4,7 +4,12 @@ class Tag < ActiveRecord::Base
 
    #method that aggregates tags by name
 
-   #search for post by tag
+  def self.search_tag_by_name(user_input)
+    self.all.select do |tag|
+      tag.name == user_input
+    end
+
+  end
 
    
 end

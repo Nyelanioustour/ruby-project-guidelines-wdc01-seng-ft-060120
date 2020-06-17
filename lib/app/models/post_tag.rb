@@ -7,4 +7,9 @@ class PostTag < ActiveRecord::Base
         self.all.select {|posttag| posttag.tag.name == name}.map{|posttag| posttag.post} 
     end
 
+
+    def assign_tag_to_post(post)
+        PostTag.create(post_id: post.id, tag_id: self.id)
+
+    end
 end

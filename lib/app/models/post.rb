@@ -33,7 +33,9 @@ class Post < ActiveRecord::Base
         end
     end
 
+    def self.search_current_post_view(current_post_display)
 
+    end
     
 
 end

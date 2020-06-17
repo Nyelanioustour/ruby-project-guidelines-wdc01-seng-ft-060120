@@ -10,8 +10,20 @@ def display_select_option
     puts "Select an option."
 end
 
+def display_add_tag?
+    puts "Do you want to add tag to your post?"
+    puts "1. Yes"
+    puts "2. No"
+
+end
+
 def display_tag_selection()
     puts "Enter tag to search by"
+end
+
+def display_tag_to_add?
+    puts "Enter your tag to add"
+
 end
 
 def display_active_tags()
@@ -87,9 +99,14 @@ def login_valid?(user_main)
     User.all.include?(user_main)
 end
 
-def create_and_display_created_post(topic,title,body,user_id)
-    Post.create(topic: topic,title: title,body: body,user_id: user_id).parse_post
+def create_created_post(topic,title,body,user_id)
+    Post.create(topic: topic,title: title,body: body,user_id: user_id)
 end
+
+def select_post_to_tag(user_input, current_post_display)
+    return current_post_display[user_input.to_i-1]
+
+ end
 
 def invalid_option
     puts "\nPlease select a valid option!\n\n"
