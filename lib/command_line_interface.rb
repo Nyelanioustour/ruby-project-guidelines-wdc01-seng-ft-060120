@@ -76,9 +76,9 @@ def display_post_results(current_post_display)
     end
 end
 
-def like_query(user_input)
+def like_query(user_input, user_main, current_post_display)
     if user_input == "1"
-        puts "Enter post number.8"
+        puts "Enter post number."
         user_input = get_user_input()
         user_main.like_post(current_post_display,user_input)
     end
@@ -99,7 +99,7 @@ end
 def create_new_user
     puts "Enter a username."
     user_input = get_user_input()
-    user1 = User.create(username: user_input)
+    return User.create(username: user_input)
 end
 
 def login
@@ -107,12 +107,27 @@ def login
     user_input = get_user_input()
     return User.all.select {|user| user.username == user_input}[0]
 end
+
+def set_user_password(user_main)
+    puts "Enter a password."
+    # binding.pry
+    user_main.pwd = get_user_input()
+    user_main.save
+end
+
 def enter_user_password(user_main)
+    if user_main.pwd == nil
+        return user_main
+    end
     puts "Enter your password:"
         password = STDIN.noecho(&:gets).chomp
-        if password != user_main.pwd
+        if user_main == nil
+            return nil
+        elsif password != user_main.pwd
           puts "\nPassword was incorrect\n\nor"
           return nil
+        else
+            return user_main
         end
 end
 

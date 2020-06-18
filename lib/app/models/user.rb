@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
       end 
 
       def posts_by_user_tags
-         self.tags.map{|tag| tag.posts}
+         self.tags.map {|tag| tag.posts}.flatten!
       end
 
       def follow_a_tag(user_tag)

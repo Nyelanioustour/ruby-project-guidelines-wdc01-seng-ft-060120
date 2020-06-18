@@ -11,7 +11,8 @@ loop do
     user_input = get_user_input()
       case user_input 
       when "1"
-        create_new_user()
+        user_main = create_new_user()
+        set_user_password(user_main)
       when "2"
         user_main = login()
         user_main = enter_user_password(user_main)
@@ -40,7 +41,7 @@ loop do
       display_select_option()
       display_like_prompt()
       user_input = get_user_input()
-      like_query(user_input)
+      like_query(user_input, user_main, current_post_display)
     when "2"
       current_post_display = user_main.posts
       display_post_results(current_post_display)
@@ -76,8 +77,10 @@ loop do
       title = get_user_input
       puts "Compose Post:" 
       body = get_user_input
+      current_post_display = []
       current_post_display << create_created_post(topic,title,body,user_main.id)
       display_post_results(current_post_display)
+      loop do 
       display_add_tag?
       user_input = get_user_input
       if user_input == "1"
@@ -88,7 +91,10 @@ loop do
         end
           user_tag = Tag.search_tag_by_name(user_input)
           user_tag.assign_tag_to_post(current_post_display[0])
+      else
+        break
       end
+     end 
     when "7"
       User.display_most_posts
     when "8"
@@ -97,7 +103,7 @@ loop do
       display_select_option()
       display_like_prompt()
       user_input = get_user_input()
-      like_query(user_input)
+      like_query(user_input, user_main, current_post_display)
     when "9"
       exit()
     else
@@ -114,19 +120,21 @@ loop do
       user_input = get_user_input()
       current_post_display = Post.keyword_search_title(user_input).map{|post| post}
       display_post_results(current_post_display)
+      current_post_display_check(current_post_display)
       display_select_option()
       display_like_prompt()
       user_input = get_user_input()
-      like_query(user_input)
+      like_query(user_input, user_main, current_post_display)
     when "2"
       puts "Enter search query"
       user_input = get_user_input()
       current_post_display = Post.keyword_search_body(user_input)
       display_post_results(current_post_display)
+      current_post_display_check(current_post_display)
       display_select_option()
       display_like_prompt()
       user_input = get_user_input()
-      like_query(user_input)
+      like_query(user_input, user_main, current_post_display)
 
     when "3"
       display_active_tags()
@@ -140,7 +148,7 @@ loop do
       display_select_option()
       display_like_prompt()
       user_input = get_user_input()
-      like_query(user_input)
+      like_query(user_input, user_main, current_post_display)
     when "5"
       break
     else
