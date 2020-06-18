@@ -56,8 +56,8 @@ loop do
       user_input = get_user_input
       if user_input == "1"
         current_post_display = user_main.posts_by_user_tags()
-        display_post_results(current_post_display)
         current_post_display_check(current_post_display)
+        display_post_results(current_post_display)
         user_main.display_user_tags()
       elsif user_input == "2"
         display_user_tag_prompt()

@@ -6,7 +6,11 @@ class User < ActiveRecord::Base
    has_many :tags, through: :user_tags
 
       def posts_by_user_tags
-         self.tags.map {|tag| tag.posts}.flatten!
+         array = self.tags.map {|tag| tag.posts}.flatten!
+         if array == nil
+            array = []
+         end
+         return array
       end
 
       def follow_a_tag(user_tag)
