@@ -5,22 +5,6 @@ class User < ActiveRecord::Base
    has_many :user_tags
    has_many :tags, through: :user_tags
 
-      def user_post_title
-         self.posts.map {|post| post.title}
-      end
-   
-      def user_post_topic
-         self.posts.map {|post| post.topic}
-      end
-
-      def user_post_body
-         self.posts.map {|post| post.body}
-      end
-      
-      def post_percentage
-         (self.posts.count / Post.all.length.to_f) * 100
-      end 
-
       def posts_by_user_tags
          self.tags.map {|tag| tag.posts}.flatten!
       end
