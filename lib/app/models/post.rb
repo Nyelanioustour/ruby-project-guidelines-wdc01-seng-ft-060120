@@ -12,8 +12,6 @@ class Post < ActiveRecord::Base
         puts "Author: #{self.user.username}\n\n"
     end
 
-    
-
     def self.keyword_search_title(search_term)
         Post.all.select{|post| post.title.include?(search_term)}
     end
@@ -27,35 +25,17 @@ class Post < ActiveRecord::Base
         results << self.keyword_search_title(search_term)
         results << self.keyword_search_body(search_term)
     end
-
-    def self.display_sorted_posts_most_likes
+    
+    def self.display_sort_posts_most_likes
         array = []
-        post_array = []
-        count = 0
-
         Post.all.each do |post|
-            array << post.likes.count
+            array << "Likes: #{post.likes.count}\n\nTitle: #{post.title}\n\n#{post.body}\n\nAuthor: #{post.user.username}\n\nPost #{post.id}\n\n ******************* \n\n"
         end
-        array = array.sort.reverse
-        Post.all.each do |post|
-            post.likes == array[count]
-            post_array = [post]
-            display_post_results(post_array)
-            count +=1
-            end
-        return nil
+        puts array.sort.reverse
     end
 
-
-        # array.sort
-
-            # post.likes.count == Post.all.map{|post| post.likes.count}.max
-        
-
-
-    def self.search_current_post_view(current_post_display)
-
+    def self.most_likes
+        self.all.select {|post| post.likes.count == self.all.map{|post| post.likes.count}.max}
     end
     
-
 end

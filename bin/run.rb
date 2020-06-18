@@ -14,6 +14,7 @@ loop do
         create_new_user()
       when "2"
         user_main = login()
+        user_main = enter_user_password(user_main)
       when "3"
         exit()
       else
@@ -43,21 +44,26 @@ loop do
     when "2"
       current_post_display = user_main.posts
       display_post_results(current_post_display)
+      current_post_display_check(current_post_display)
     when "3" 
       current_post_display = user_main.user_liked_posts
       display_post_results(current_post_display)
+      current_post_display_check(current_post_display)
     when "4"
+      display_select_option()
       display_follow_tag_options()
       user_input = get_user_input
       if user_input == "1"
         current_post_display = user_main.posts_by_user_tags()
         display_post_results(current_post_display)
+        current_post_display_check(current_post_display)
         user_main.display_user_tags()
       elsif user_input == "2"
         display_user_tag_prompt()
         display_active_tags()
         user_input = get_user_input
         user_tag = Tag.search_tag_by_name(user_input)
+        user_tag_check(user_tag)
         user_main.follow_a_tag(user_tag)
       end
 
@@ -124,19 +130,17 @@ loop do
 
     when "3"
       display_active_tags()
-      display_select_option()
       display_tag_selection()
       user_input = get_user_input()
       current_post_display = PostTag.search_post_by_tags(user_input)
       display_post_results(current_post_display)
     when "4"
-      Post.display_sorted_posts_most_likes()
-      # current_post_display = Post.most_likes
-      # display_post_results(current_post_display)
-      # display_select_option()
-      # display_like_prompt()
-      # user_input = get_user_input()
-      # like_query(user_input)
+      current_post_display = Post.all
+      Post.display_sort_posts_most_likes()
+      display_select_option()
+      display_like_prompt()
+      user_input = get_user_input()
+      like_query(user_input)
     when "5"
       break
     else

@@ -23,13 +23,12 @@ class User < ActiveRecord::Base
       end 
 
       def posts_by_user_tags
-         self.tags.map{|tag| tag.posts}[0]
+         self.tags.map{|tag| tag.posts}
       end
 
       def follow_a_tag(user_tag)
          UserTag.create(user_id: self.id, tag_id: user_tag.id)
       end
-
 
       def user_liked_posts
          self.likes.map{|like| like.post}

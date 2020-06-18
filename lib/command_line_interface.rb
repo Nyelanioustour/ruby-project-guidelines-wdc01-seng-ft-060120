@@ -1,3 +1,4 @@
+require 'io/console'
 def welcome
     puts "Welcome to Message Board!"
     puts "Please choose whether to login or create new user account"
@@ -54,6 +55,13 @@ def display_user_tag_prompt
     puts "Enter a tag to follow."
 end
 
+def current_post_display_check(current_post_display)
+    if current_post_display == []
+        puts "No posts found!"
+    end
+    
+end
+
 def display_post_results(current_post_display)
     puts "\n"
     count = 1
@@ -63,7 +71,7 @@ def display_post_results(current_post_display)
         post.parse_post
         print "Likes: "
         print post.likes.count
-        puts "\n ******************* \n"
+        puts "\n\n ******************* \n\n"
         count +=1
     end
 end
@@ -99,9 +107,23 @@ def login
     user_input = get_user_input()
     return User.all.select {|user| user.username == user_input}[0]
 end
+def enter_user_password(user_main)
+    puts "Enter your password:"
+        password = STDIN.noecho(&:gets).chomp
+        if password != user_main.pwd
+          puts "\nPassword was incorrect\n\nor"
+          return nil
+        end
+end
 
 def login_valid?(user_main)
     User.all.include?(user_main)
+end
+
+def user_tag_check(user_tag)
+    if user_tag == nil
+    puts "Tag not active."
+    end
 end
 
 def create_created_post(topic,title,body,user_id)
