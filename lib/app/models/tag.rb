@@ -4,7 +4,6 @@ class Tag < ActiveRecord::Base
    has_many :posts, through: :post_tags
    has_many :users, through: :user_tags
 
-   
    def assign_tag_to_post(post)
     PostTag.create(post_id: post.id, tag_id: self.id)
    end
@@ -23,6 +22,4 @@ class Tag < ActiveRecord::Base
       true
      end
   end
-
-
 end

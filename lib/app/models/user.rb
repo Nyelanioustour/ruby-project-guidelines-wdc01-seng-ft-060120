@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
    has_many :user_tags
    has_many :tags, through: :user_tags
 
-     
       def user_post_title
          self.posts.map {|post| post.title}
       end
@@ -33,6 +32,7 @@ class User < ActiveRecord::Base
       def user_liked_posts
          self.likes.map{|like| like.post}
       end
+
       def display_user_tags
          print "You are following: "
          print self.tags.map{|tag| tag.name}.join(", ")

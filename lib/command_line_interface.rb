@@ -23,8 +23,7 @@ def display_tag_selection()
 end
 
 def display_tag_to_add?
-    puts "Enter your tag to add"
-
+    puts "Enter and existing tag or your own tag to add"
 end
 
 def display_active_tags()
@@ -58,8 +57,7 @@ end
 def current_post_display_check(current_post_display)
     if current_post_display == []
         puts "No posts found!"
-    end
-    
+    end 
 end
 
 def display_post_results(current_post_display)

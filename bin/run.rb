@@ -63,11 +63,14 @@ loop do
         display_user_tag_prompt()
         display_active_tags()
         user_input = get_user_input
-        user_tag = Tag.search_tag_by_name(user_input)
-        user_tag_check(user_tag)
-        user_main.follow_a_tag(user_tag)
+        if Tag.tag_exist?(user_input)
+          user_tag = Tag.search_tag_by_name(user_input)
+          user_tag_check(user_tag)
+          user_main.follow_a_tag(user_tag)
+        else 
+          puts "\nTag not found!\n"
+        end
       end
-
     when "5"
       break
     when "6"
@@ -84,6 +87,7 @@ loop do
       display_add_tag?
       user_input = get_user_input
       if user_input == "1"
+        display_active_tags()
         display_tag_to_add?
         user_input = get_user_input
         if !Tag.tag_exist?(user_input)  
@@ -135,7 +139,6 @@ loop do
       display_like_prompt()
       user_input = get_user_input()
       like_query(user_input, user_main, current_post_display)
-
     when "3"
       display_active_tags()
       display_tag_selection()
@@ -156,7 +159,3 @@ loop do
     end
   end
 end
-
-binding.pry
-
-

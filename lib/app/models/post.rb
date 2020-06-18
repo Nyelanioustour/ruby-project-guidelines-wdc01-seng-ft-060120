@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
     has_many :tags, through: :post_tags
     
     def parse_post
-        puts "\nTitle: #{self.title}\n\n"
+        puts "\nTopic: #{self.topic}    Title: #{self.title}\n\n"
         puts "#{self.body}\n\n"
         puts "Author: #{self.user.username}\n\n"
     end
@@ -29,7 +29,7 @@ class Post < ActiveRecord::Base
     def self.display_sort_posts_most_likes
         array = []
         Post.all.each do |post|
-            array << "Likes: #{post.likes.count}\n\nTitle: #{post.title}\n\n#{post.body}\n\nAuthor: #{post.user.username}\n\nPost #{post.id}\n\n ******************* \n\n"
+            array << "Likes: #{post.likes.count}\n\nTopic: #{post.topic}    Title: #{post.title}\n\n#{post.body}\n\nAuthor: #{post.user.username}\n\nPost #{post.id}\n\n ******************* \n\n"
         end
         puts array.sort.reverse
     end
@@ -37,5 +37,4 @@ class Post < ActiveRecord::Base
     def self.most_likes
         self.all.select {|post| post.likes.count == self.all.map{|post| post.likes.count}.max}
     end
-    
 end
